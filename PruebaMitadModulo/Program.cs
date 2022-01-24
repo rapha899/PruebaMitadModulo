@@ -8,7 +8,23 @@ namespace PruebaMitadModulo
     {
         static void Main(string[] args)
         {
-           //CREAR PELICULA
+            //añadimos peliculas al inventario
+            inventory iv1 = new inventory
+            {
+                last_update = DateTime.Now,
+
+            };
+            inventory iv2 = new inventory
+            {
+                last_update = DateTime.Now,
+
+            };
+            inventory iv3 = new inventory
+            {
+                last_update = DateTime.Now,
+            };
+            List<inventory> LstInven = new List<inventory> { iv2, iv1, iv3 };
+            //CREAR PELICULA
             film Matrix = new film {
             title = "Matrix",
             description = "Accion",
@@ -18,7 +34,8 @@ namespace PruebaMitadModulo
             replacement_cost =  15 ,
             last_update = DateTime.Now,
             special_fectures = "none",
-            fulltext =  "yes"
+            fulltext =  "yes",
+            inventories = new List<inventory>() { iv1, iv2, iv3 },
 
             };
 
@@ -33,7 +50,8 @@ namespace PruebaMitadModulo
                 replacement_cost = 15,
                 last_update = DateTime.Now,
                 special_fectures = "none",
-                fulltext = "yes"
+                fulltext = "yes",
+                inventories = new List<inventory>() { iv1, iv2, iv3 }
             };
             //CREAR PELICULA
             film Credd = new film
@@ -46,7 +64,8 @@ namespace PruebaMitadModulo
                 replacement_cost = 15,
                 last_update = DateTime.Now,
                 special_fectures = "none",
-                fulltext = "yes"
+                fulltext = "yes",
+                inventories = new List<inventory>() { iv1, iv2, iv3 }
             };
             //CREAR PELICULA
             film Rocky1 = new film
@@ -59,7 +78,8 @@ namespace PruebaMitadModulo
                 replacement_cost = 15,
                 last_update = DateTime.Now,
                 special_fectures = "none",
-                fulltext = "yes"
+                fulltext = "yes",
+                inventories = new List<inventory>() { iv1, iv2, iv3 }
             };
             film Rocky2 = new film
             {
@@ -71,7 +91,8 @@ namespace PruebaMitadModulo
                 replacement_cost = 15,
                 last_update = DateTime.Now,
                 special_fectures = "none",
-                fulltext = "yes"
+                fulltext = "yes",
+                inventories = new List<inventory>() { iv1, iv2, iv3 }
             };
             film Rocky4 = new film
             {
@@ -83,7 +104,8 @@ namespace PruebaMitadModulo
                 replacement_cost = 15,
                 last_update = DateTime.Now,
                 special_fectures = "none",
-                fulltext = "yes"
+                fulltext = "yes",
+                inventories =  new List<inventory>() { iv1, iv2 ,iv3}
             };
             //lista peliculas
             List<film> Lstfilm = new List<film> { Rocky, Credd, Matrix };
@@ -110,23 +132,16 @@ namespace PruebaMitadModulo
 
             };
             List<language> Lstlanguaje = new List<language> { english , español , french };
-            //añadimos peliculas al inventario
-            inventory iv1 = new inventory
-            {
-                id = 1,
-                last_update = DateTime.Now,
-
-            };
-
-
+       
 
 
             //Insertamos los datos
             using (ModeloDB.Class1 contex = new ModeloDB.Class1())
             {
+                contex.inventories.AddRange(LstInven);
                 contex.films.AddRange(Lstfilm);
                 contex.languages.AddRange(Lstlanguaje);
-
+               
                 contex.SaveChanges();
             }
         }
