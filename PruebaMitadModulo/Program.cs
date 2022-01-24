@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Modelo.Peliculas;
+using ModeloDB;
 namespace PruebaMitadModulo
 {
     public class Program
@@ -8,7 +9,7 @@ namespace PruebaMitadModulo
         static void Main(string[] args)
         {
            //CREAR PELICULA
-            film Matrix = new film { 
+            film Matrix = new film {
             title = "Matrix",
             description = "Accion",
             relase_year = 2022,
@@ -18,6 +19,7 @@ namespace PruebaMitadModulo
             last_update = DateTime.Now,
             special_fectures = "none",
             fulltext =  "yes"
+
             };
 
             //CREAR PELICULA
@@ -89,21 +91,44 @@ namespace PruebaMitadModulo
             language español = new language
             {
                 name = "Español",
-                last_update = DateTime.Now
+                last_update = DateTime.Now,
+                films = new List<film>() { Rocky , Rocky1 ,Rocky2 , Rocky4 , Matrix , Credd}
+
             };
             language english = new language
             {
                 name = "English",
-                last_update = DateTime.Now
+                last_update = DateTime.Now,
+                films = new List<film>() { Rocky, Rocky1, Rocky2, Rocky4, Matrix, Credd }
+
             };
             language french = new language
             {
                 name = "French",
-                last_update = DateTime.Now
+                last_update = DateTime.Now ,
+                films = new List<film>() { Rocky, Rocky1, Rocky2, Rocky4, Matrix, Credd }
+
             };
             List<language> Lstlanguaje = new List<language> { english , español , french };
             //añadimos peliculas al inventario
-            
+            inventory iv1 = new inventory
+            {
+                id = 1,
+                last_update = DateTime.Now,
+
+            };
+
+
+
+
+            //Insertamos los datos
+            using (ModeloDB.Class1 contex = new ModeloDB.Class1())
+            {
+                contex.films.AddRange(Lstfilm);
+                contex.languages.AddRange(Lstlanguaje);
+
+                contex.SaveChanges();
+            }
         }
 
     }
